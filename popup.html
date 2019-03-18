@@ -1,17 +1,25 @@
 <!DOCTYPE html>
- <html>
-   <head>
-     <style>
-       button {
-         height: 30px;
-         width: 30px;
-         outline: none;
-       }
-     </style>
-   </head>
-   <body>
-     <button id="play">Play</button>
-     <button id="stop">Stop</button>
-     <script src="popup.js"></script>
-   </body>
- </html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+  button {
+    outline: none;
+  }
+  </style>
+</head>
+<body style="width:200px">
+  <div class="container">
+    <div class="row" style="text-align: center; margin-top: 10px; margin-bottom: 0px;">
+      <img src="images/logo.png" style="width: 150px;"/>
+    </div>
+    <hr />
+    <div class="row" style="text-align: center; margin-top: 20px;">
+      <button id="playPause" class="btn-floating orange darken-1"><i class="material-icons">play_arrow</i></button>
+    </div>
+    <script src="popup.js"></script>
+  </div>
+
+</body>
+</html>
