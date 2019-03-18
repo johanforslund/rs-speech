@@ -12,6 +12,7 @@ const observer = new MutationObserver(mutations => {
 chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
   if (msg.action == 'startSpeech') {
     const voices = synth.getVoices();
+    console.log("START");
 
     englishVoices = voices.filter(voice => {
       return voice.lang === 'en-GB' || voice.lang === 'en-US';
@@ -22,6 +23,7 @@ chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
     observer.observe(target, config);
   }
   if (msg.action == 'stopSpeech') {
+    console.log("STOP");
     observer.disconnect();
     stop();
   }

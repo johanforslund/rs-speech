@@ -14,7 +14,7 @@
        "content.js"
       ]
     }],
-    "browser_action": {
+    "page_action": {
       "default_popup": "popup.html",
       "default_icon": {
         "16": "images/logo16.png",
