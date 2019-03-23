@@ -17,6 +17,15 @@ chrome.extension.onMessage.addListener(
        if(request.msg == "playPause") {
          playing = !playing;
        }
+       if(request.msg == "newContent") {
+         playing = false;
+         chrome.tabs.query({}, function(tabs) {
+           for (var i=0; i<tabs.length; ++i) {
+                console.log(i);
+                chrome.tabs.sendMessage(tabs[i].id, {action: 'reset'}, function(response) {});
+            }
+         });
+       }
    }
 );
 

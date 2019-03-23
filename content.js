@@ -1,6 +1,10 @@
 const synth = window.speechSynthesis;
 let englishVoices = [];
 
+document.addEventListener('DOMContentLoaded',function(){
+  chrome.runtime.sendMessage({msg: "newContent"}, function(response) {});
+});
+
 const observer = new MutationObserver(mutations => {
   mutations.map(mutation => {
     if (mutation.addedNodes.length > 0) {
@@ -11,23 +15,34 @@ const observer = new MutationObserver(mutations => {
 
 chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
   if (msg.action == 'startSpeech') {
-    const voices = synth.getVoices();
-    console.log("START");
-
-    englishVoices = voices.filter(voice => {
-      return voice.lang === 'en-GB' || voice.lang === 'en-US';
-    });
-
-    const target = document.querySelector("#c-list");
-    const config = { childList: true };
-    observer.observe(target, config);
+    startSpeech();
   }
   if (msg.action == 'stopSpeech') {
-    console.log("STOP");
-    observer.disconnect();
-    stop();
+    stopSpeech();
+  }
+  if (msg.action == 'reset') {
+    stopSpeech();
   }
 });
+
+function startSpeech() {
+  const voices = synth.getVoices();
+  console.log("START");
+
+  englishVoices = voices.filter(voice => {
+    return voice.lang === 'en-GB' || voice.lang === 'en-US';
+  });
+
+  const target = document.querySelector("#c-list");
+  const config = { childList: true };
+  observer.observe(target, config);
+}
+
+function stopSpeech() {
+  console.log("STOP");
+  observer.disconnect();
+  stop();
+}
 
 function speak(text) {
   const utterThis = new SpeechSynthesisUtterance(text);
