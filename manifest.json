@@ -1,7 +1,7 @@
 {
     "name": "rs-speech",
     "version": "1.0",
-    "description": "Read-aloud!",
+    "description": "Text-to-Speech for Reddit-Stream.",
     "permissions": ["declarativeContent", "activeTab"],
     "background": {
       "scripts": ["background.js"],
