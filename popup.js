@@ -1,15 +1,20 @@
 let playPauseButton = document.getElementById('playPause');
 let playing;
+let currTabID;
+
+chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  currTabID = tabs[0].id;
+});
 
 document.addEventListener('DOMContentLoaded',function(){
   chrome.runtime.getBackgroundPage(background => {
-    playing = background.isPlaying();
+    playing = background.isPlaying(currTabID);
     playPauseButton.childNodes[0].innerHTML = playing ? "pause" : "play_arrow";
   });
 });
 
 playPauseButton.onclick = function(element) {
-  chrome.extension.sendMessage({ msg: "playPause" }, function(response) {
+  chrome.extension.sendMessage({ msg: "playPause", data: currTabID }, function(response) {
     playing = !playing;
     playPauseButton.childNodes[0].innerHTML = playing ? "pause" : "play_arrow";
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
