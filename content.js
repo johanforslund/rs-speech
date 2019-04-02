@@ -9,10 +9,11 @@ const observer = new MutationObserver(mutations => {
   });
 });
 
-chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
   if (msg.action == 'startSpeech') {
     const voices = synth.getVoices();
     console.log("START");
+    sendResponse({message: "Started"});
 
     englishVoices = voices.filter(voice => {
       return voice.lang === 'en-GB' || voice.lang === 'en-US';
@@ -26,6 +27,7 @@ chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
     console.log("STOP");
     observer.disconnect();
     stop();
+    sendResponse({message: "Stopped"});
   }
 });
 
@@ -43,5 +45,5 @@ function stop()
 function randomVoice(utterThis) {
   const randomIndex = Math.floor(Math.random() * englishVoices.length);
   utterThis.voice = englishVoices[randomIndex];
-  utterThis.pitch = Math.random() * (1.3 - 0.7) + 0.7;
+  utterThis.pitch = Math.random() * (1.2 - 0.8) + 0.7;
 }

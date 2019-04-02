@@ -12,10 +12,11 @@ chrome.runtime.onInstalled.addListener(function() {
    });
  });
 
-chrome.extension.onMessage.addListener(
+chrome.runtime.onMessage.addListener(
    function(request, sender, sendResponse){
        if(request.msg == "playPause") {
          playingIDs[request.data] = !playingIDs[request.data];
+         sendResponse({message: "PlayPaused"});
        }
    }
 );
