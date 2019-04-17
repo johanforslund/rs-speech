@@ -6,11 +6,9 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
   currTabID = tabs[0].id;
 });
 
-document.addEventListener('DOMContentLoaded', function(){
-  chrome.runtime.getBackgroundPage(background => {
-    playing = background.isPlaying(currTabID);
-    playPauseButton.childNodes[0].innerHTML = playing ? "pause" : "play_arrow";
-  });
+chrome.runtime.getBackgroundPage(background => {
+  playing = background.isPlaying(currTabID);
+  playPauseButton.childNodes[0].innerHTML = playing ? "pause" : "play_arrow";
 });
 
 playPauseButton.onclick = function(element) {
